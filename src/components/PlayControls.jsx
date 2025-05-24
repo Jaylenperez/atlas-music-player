@@ -1,7 +1,9 @@
+// src/components/PlayControls.jsx
 import { useState } from "react";
 
 export function PlayControls() {
   const [speed, setSpeed] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
   const speeds = [1, 1.5, 2];
 
   const nextSpeed = () => {
@@ -22,7 +24,10 @@ export function PlayControls() {
       </button>
 
       {/* Rewind Icon */}
-      <button className="rounded p-2 transition hover:bg-stone-200">
+      <button
+        className="rounded p-2 transition hover:bg-stone-200"
+        aria-label="Rewind"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -35,21 +40,48 @@ export function PlayControls() {
         </svg>
       </button>
 
-      {/* Play Icon */}
-      <button className="rounded p-2 transition hover:bg-stone-200">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <polygon points="6 3 20 12 6 21 6 3" />
-        </svg>
+      {/* Play / Pause Button */}
+      <button
+        onClick={() => setIsPlaying(!isPlaying)}
+        className="flex h-10 w-10 items-center justify-center rounded border border-gray-300 p-2 transition hover:bg-stone-200"
+        aria-label={isPlaying ? "Pause" : "Play"}
+      >
+        {isPlaying ? (
+          // Pause icon
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-pause-icon lucide-pause"
+          >
+            <rect x="14" y="4" width="4" height="16" rx="1" />
+            <rect x="6" y="4" width="4" height="16" rx="1" />
+          </svg>
+        ) : (
+          // Play icon
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <polygon points="6 3 20 12 6 21 6 3" />
+          </svg>
+        )}
       </button>
 
       {/* Fast Forward Icon */}
-      <button className="rounded p-2 transition hover:bg-stone-200">
+      <button
+        className="rounded p-2 transition hover:bg-stone-200"
+        aria-label="Fast forward"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -63,7 +95,10 @@ export function PlayControls() {
       </button>
 
       {/* Shuffle Icon */}
-      <button className="rounded p-2 transition hover:bg-stone-200">
+      <button
+        className="rounded p-2 transition hover:bg-stone-200"
+        aria-label="Shuffle"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
