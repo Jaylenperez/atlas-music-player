@@ -1,15 +1,20 @@
+// src/App.jsx
+import React from "react";
+import CurrentlyPlaying from "./CurrentlyPlaying";
+import Playlist from "./Playlist";
 import Footer from "./Footer";
-import MusicPlayer from "./MusicPlayer";
 
-function App() {
+export default function App() {
   return (
-    <div className="flex flex-row">
-      <div className="flex h-full min-h-screen flex-col justify-between p-8 font-sans">
-        <MusicPlayer />
+    <div className="flex min-h-screen">
+      <div className="flex w-1/2 flex-col justify-between p-8 font-sans">
+        <CurrentlyPlaying />
         <Footer />
+      </div>
+
+      <div className="w-1/2 overflow-y-auto border-l border-gray-200 p-8">
+        <Playlist />
       </div>
     </div>
   );
 }
-
-export default App;

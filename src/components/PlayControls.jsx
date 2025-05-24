@@ -1,68 +1,75 @@
+import { useState } from "react";
+
 export function PlayControls() {
+  const [speed, setSpeed] = useState(1);
+  const speeds = [1, 1.5, 2];
+
+  const nextSpeed = () => {
+    const currentIndex = speeds.indexOf(speed);
+    const nextIndex = (currentIndex + 1) % speeds.length;
+    setSpeed(speeds[nextIndex]);
+  };
+
   return (
-    <div>
-      <button>
+    <div className="flex w-full items-center justify-between">
+      {/* Speed Button */}
+      <button
+        onClick={nextSpeed}
+        className="rounded px-2 py-1 text-sm font-medium transition hover:bg-stone-200"
+        aria-label="Change playback speed"
+      >
+        {speed}X
+      </button>
+
+      {/* Rewind Icon */}
+      <button className="rounded p-2 transition hover:bg-stone-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+          className="h-6 w-6"
           fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-rewind-icon lucide-rewind"
         >
           <polygon points="11 19 2 12 11 5 11 19" />
           <polygon points="22 19 13 12 22 5 22 19" />
         </svg>
       </button>
-      <button>
+
+      {/* Play Icon */}
+      <button className="rounded p-2 transition hover:bg-stone-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+          className="h-6 w-6"
           fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-play-icon lucide-play"
         >
           <polygon points="6 3 20 12 6 21 6 3" />
         </svg>
       </button>
-      <button>
+
+      {/* Fast Forward Icon */}
+      <button className="rounded p-2 transition hover:bg-stone-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+          className="h-6 w-6"
           fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-fast-forward-icon lucide-fast-forward"
         >
           <polygon points="13 19 22 12 13 5 13 19" />
           <polygon points="2 19 11 12 2 5 2 19" />
         </svg>
       </button>
-      <button>
+
+      {/* Shuffle Icon */}
+      <button className="rounded p-2 transition hover:bg-stone-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+          className="h-6 w-6"
           fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-shuffle-icon lucide-shuffle"
         >
           <path d="m18 14 4 4-4 4" />
           <path d="m18 2 4 4-4 4" />

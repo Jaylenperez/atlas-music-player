@@ -1,10 +1,10 @@
 import React from "react";
 
-export function SongTtile(){
-    return (
-        <div>
-            <h2 className="text-2xl" >Song title</h2>
-            <p className="text-2xl text-stone-400/50">Artist</p>
-        </div>
-    )
+export function SongTitle() {
+  return (
+    <div className="w-full">
+      <h2 className="text-left text-2xl font-bold">Song title</h2>
+      <p className="text-left text-lg text-stone-400">Artist</p>
+    </div>
+  );
 }

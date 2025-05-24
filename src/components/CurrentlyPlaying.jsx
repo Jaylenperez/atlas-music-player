@@ -2,20 +2,14 @@ import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
-import PlayListItem from "./PlayListItem";
 
-export default function MusicPlayer() {
+export default function CurrentlyPlaying() {
   return (
-    <div>
+    <div className="mx-auto flex max-w-sm flex-col items-center space-y-6 p-4">
       <CoverArt />
       <SongTitle />
       <PlayControls />
       <VolumeControls />
-      <PlayListItem
-        title="Nightmare"
-        artist="Avenged Sevenfold"
-        length="6:14"
-      />
     </div>
   );
 }
