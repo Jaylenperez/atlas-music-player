@@ -19,14 +19,16 @@ export default function Playlist() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div className="mx-auto max-w-md">
-      <h2 className="mb-4 text-2xl font-semibold">Playlist</h2>
+    <div className="w-full">
+      <h2 className="mb-4 text-left text-2xl font-semibold">Playlist</h2>
       <div className="space-y-1">
         {tracks.map((track, idx) => (
           <div
             key={idx}
             onClick={() => setSelectedIndex(idx)}
-            className={`cursor-pointer rounded-md ${idx === selectedIndex ? "bg-blue-50" : ""} `}
+            className={`cursor-pointer rounded-md ${
+              idx === selectedIndex ? "bg-blue-50" : ""
+            }`}
           >
             <PlayListItem {...track} />
           </div>
