@@ -5,12 +5,14 @@ import Playlist from "./Playlist";
 
 export default function App() {
   return (
-    <div className="flex min-h-screen">
-      <div className="flex w-1/2 flex-col justify-between p-8 font-sans">
+    <div className="flex min-h-screen flex-col md:flex-row">
+      {/* On mobile: full width & stacked; on md+: left half */}
+      <div className="flex w-full flex-col justify-between p-4 font-sans md:w-1/2 md:p-8">
         <CurrentlyPlaying />
       </div>
 
-      <div className="w-1/2 overflow-y-auto border-l border-gray-200 p-8">
+      {/* On mobile: full width below; on md+: right half */}
+      <div className="w-full overflow-y-auto border-t border-gray-200 p-4 md:w-1/2 md:border-t-0 md:border-l md:p-8">
         <Playlist />
       </div>
     </div>
