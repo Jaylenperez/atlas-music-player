@@ -5,7 +5,7 @@ import Playlist from "./Playlist";
 
 export default function App() {
   return (
-    <div className="flex h-screen flex-col overflow-hidden md:flex-row">
+    <div className="flex h-screen flex-col overflow-hidden bg-indigo-950 md:flex-row">
       {/* On mobile: full width & stacked; on md+: left half */}
       <div className="flex w-full flex-col justify-between p-4 font-sans md:w-1/2 md:p-8">
         <CurrentlyPlaying />

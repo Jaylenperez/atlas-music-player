@@ -20,14 +20,16 @@ export default function Playlist() {
 
   return (
     <div className="w-full">
-      <h2 className="mb-4 text-left text-2xl font-semibold">Playlist</h2>
+      <h2 className="mb-4 text-left text-2xl font-semibold text-sky-300">
+        Playlist
+      </h2>
       <div className="space-y-1">
         {tracks.map((track, idx) => (
           <div
             key={idx}
             onClick={() => setSelectedIndex(idx)}
             className={`cursor-pointer rounded-md ${
-              idx === selectedIndex ? "bg-blue-50" : ""
+              idx === selectedIndex ? "bg-indigo-900" : ""
             }`}
           >
             <PlayListItem {...track} />

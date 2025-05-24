@@ -28,7 +28,7 @@ export function VolumeControls() {
         max="100"
         value={volume}
         onChange={(e) => setVolume(Number(e.target.value))}
-        className="h-1 w-full cursor-pointer accent-stone-600"
+        className="h-1 w-full cursor-pointer accent-sky-600"
         aria-label="Volume slider"
       />
     </div>
