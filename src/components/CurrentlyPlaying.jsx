@@ -1,3 +1,4 @@
+// src/CurrentlyPlaying.jsx
 import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
 import { PlayControls } from "./PlayControls";
@@ -5,11 +6,22 @@ import { VolumeControls } from "./VolumeControls";
 
 export default function CurrentlyPlaying() {
   return (
-    <div className="pt-.5 flex h-full w-full flex-col items-start space-y-3 px-4 pt-0 pb-4">
-      <CoverArt />
-      <SongTitle />
-      <PlayControls />
-      <VolumeControls />
+    <div className="flex h-full w-full flex-col justify-between px-4 py-4">
+      {/* Top: cover art */}
+      <div className="flex-shrink-0">
+        <CoverArt />
+      </div>
+
+      {/* Middle: song title + play/pause/etc */}
+      <div className="space-y-3">
+        <SongTitle />
+        <PlayControls />
+      </div>
+
+      {/* Bottom: volume slider */}
+      <div className="flex-shrink-0">
+        <VolumeControls />
+      </div>
     </div>
   );
 }

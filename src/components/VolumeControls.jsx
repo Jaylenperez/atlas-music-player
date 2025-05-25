@@ -6,7 +6,7 @@ export function VolumeControls() {
   return (
     <div className="flex w-full items-center gap-2">
       <button
-        className="rounded p-2 transition hover:bg-stone-200"
+        className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label="Volume"
       >
         <svg
@@ -28,7 +28,7 @@ export function VolumeControls() {
         max="100"
         value={volume}
         onChange={(e) => setVolume(Number(e.target.value))}
-        className="h-1 w-full cursor-pointer accent-sky-600"
+        className="h-1 w-full cursor-pointer accent-fuchsia-400"
         aria-label="Volume slider"
       />
     </div>

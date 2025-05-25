@@ -17,7 +17,7 @@ export function PlayControls() {
       {/* Speed Button */}
       <button
         onClick={nextSpeed}
-        className="rounded px-2 py-1 text-sm font-medium transition hover:bg-stone-200"
+        className="rounded px-2 py-1 text-sm font-medium text-sky-400 transition hover:bg-indigo-900"
         aria-label="Change playback speed"
       >
         {speed}X
@@ -25,7 +25,7 @@ export function PlayControls() {
 
       {/* Rewind Icon */}
       <button
-        className="rounded p-2 transition hover:bg-stone-200"
+        className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label="Rewind"
       >
         <svg
@@ -43,7 +43,7 @@ export function PlayControls() {
       {/* Play / Pause Button */}
       <button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="flex h-10 w-10 items-center justify-center rounded border border-gray-300 p-2 transition hover:bg-stone-200"
+        className="flex h-10 w-10 items-center justify-center rounded border border-gray-300 p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label={isPlaying ? "Pause" : "Play"}
       >
         {isPlaying ? (
@@ -79,7 +79,7 @@ export function PlayControls() {
 
       {/* Fast Forward Icon */}
       <button
-        className="rounded p-2 transition hover:bg-stone-200"
+        className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label="Fast forward"
       >
         <svg
@@ -96,7 +96,7 @@ export function PlayControls() {
 
       {/* Shuffle Icon */}
       <button
-        className="rounded p-2 transition hover:bg-stone-200"
+        className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label="Shuffle"
       >
         <svg
