@@ -1,17 +1,32 @@
 // src/App.jsx
-import React from "react";
+import React, { useState } from "react";
 import CurrentlyPlaying from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
 
 export default function App() {
+  const [lightMode, setLightMode] = useState(false);
+
   return (
-    <div className="flex h-screen flex-col overflow-x-hidden bg-indigo-950 md:flex-row">
-      {/* Left: always shows cover → controls → volume */}
+    <div
+      className={
+        // pick the bg + text combo you want for each mode
+        `${lightMode ? "bg-gray-100 text-gray-900" : "bg-indigo-950 text-white"} flex h-screen flex-col overflow-x-hidden md:flex-row`
+      }
+    >
+      {/* toggle button */}
+      <button
+        onClick={() => setLightMode(!lightMode)}
+        className={`absolute top-4 right-4 rounded px-3 py-1 text-sm font-medium ${lightMode ? "bg-slate-400 text-gray-800" : "bg-gray-800 text-gray-200"} transition`}
+      >
+        {lightMode ? "Dark Mode" : "Light Mode"}
+      </button>
+
+      {/* left panel */}
       <div className="flex w-full flex-col justify-between p-4 md:w-1/2 md:p-8">
         <CurrentlyPlaying />
       </div>
 
-      {/* Right: playlist can scroll internally if it ever overflows */}
+      {/* right panel */}
       <div className="w-full overflow-y-auto border-t border-gray-200 p-4 md:w-1/2 md:border-t-0 md:border-l md:p-8">
         <Playlist />
       </div>
