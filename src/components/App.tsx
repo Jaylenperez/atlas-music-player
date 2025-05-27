@@ -1,8 +1,6 @@
-// src/components/App.tsx
 import React, { useState, useEffect } from "react";
 import CurrentlyPlaying from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
-
 
 export interface PlaylistSong {
   id: string;

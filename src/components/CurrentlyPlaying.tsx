@@ -2,16 +2,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
-import PlayControls, { PlayControlsProps } from "./PlayControls";
+import PlayControls from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
+import { PlaylistSong } from "./App";
 
-export interface PlaylistSong {
-  id: string;
-  title: string;
-  artist: string;
-  genre: string;
-  duration: number;
-}
 interface Song extends PlaylistSong {
   cover: string;
   song: string;
@@ -34,6 +28,8 @@ const CurrentlyPlaying: React.FC<Props> = ({
   const [shuffleEnabled, setShuffleEnabled] = useState(false);
   const [volume, setVolume] = useState(50);
   const [isPlaying, setIsPlaying] = useState(false);
+  // lifted playback speed
+  const [playbackSpeed, setPlaybackSpeed] = useState<0.5 | 1 | 2>(1);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -51,13 +47,15 @@ const CurrentlyPlaying: React.FC<Props> = ({
   // When fullSong changes, swap audio
   useEffect(() => {
     if (!fullSong) return;
-    // tear down previous audio
     audioRef.current?.pause();
     const audio = new Audio(fullSong.song);
     audio.volume = volume / 100;
+    audio.playbackRate = playbackSpeed;   // set initial speed
     audioRef.current = audio;
     audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    return () => { audio.pause(); };
+    return () => {
+      audio.pause();
+    };
   }, [fullSong]);
 
   // Update volume live
@@ -67,6 +65,13 @@ const CurrentlyPlaying: React.FC<Props> = ({
     }
   }, [volume]);
 
+  // Update playbackRate when speed changes
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = playbackSpeed;
+    }
+  }, [playbackSpeed]);
+
   // Playback handlers
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -74,16 +79,21 @@ const CurrentlyPlaying: React.FC<Props> = ({
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
     }
   };
 
-  // Back / Forward / Shuffle
+  // Back / Forward / Shuffle logic
   const idx = playlist.findIndex((t) => t.id === track.id);
   const isFirst = idx <= 0;
   const isLast = idx === playlist.length - 1;
 
-  const handleBack = () => { if (!isFirst) onSelect(playlist[idx - 1]); };
+  const handleBack = () => {
+    if (!isFirst) onSelect(playlist[idx - 1]);
+  };
   const handleForward = () => {
     if (shuffleEnabled) {
       const rand = Math.floor(Math.random() * playlist.length);
@@ -119,6 +129,8 @@ const CurrentlyPlaying: React.FC<Props> = ({
             disableForward={!shuffleEnabled && isLast}
             shuffleEnabled={shuffleEnabled}
             onShuffleToggle={toggleShuffle}
+            playbackSpeed={playbackSpeed}
+            onSpeedChange={setPlaybackSpeed}
           />
         </div>
       )}
