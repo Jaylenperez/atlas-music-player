@@ -1,10 +1,23 @@
+// src/components/SongTitle.jsx
 import React from "react";
 
-export function SongTitle() {
+export function SongTitle({ lightMode }) {
   return (
     <div className="w-full">
-      <h2 className="text-left text-2xl font-bold text-sky-400">Song title</h2>
-      <p className="text-left text-lg text-fuchsia-500">Artist</p>
+      <h2
+        className={`text-left text-2xl font-bold ${
+          lightMode ? "text-slate-950" : "text-sky-400"
+        }`}
+      >
+        Song title
+      </h2>
+      <p
+        className={`text-left text-lg ${
+          lightMode ? "text-rose-700" : "text-fuchsia-500"
+        }`}
+      >
+        Artist
+      </p>
     </div>
   );
 }

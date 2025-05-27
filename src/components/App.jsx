@@ -24,7 +24,7 @@ export default function App() {
 
       {/* left panel */}
       <div className="flex w-full flex-col justify-between p-4 md:w-1/2 md:p-8">
-        <CurrentlyPlaying />
+        <CurrentlyPlaying lightMode={lightMode} />
       </div>
 
       {/* right panel */}

@@ -1,3 +1,4 @@
+// src/components/Playlist.jsx
 import React, { useState } from "react";
 
 const tracks = [
@@ -18,7 +19,11 @@ export default function Playlist({ lightMode }) {
 
   return (
     <div className="w-full">
-      <h2 className="mb-4 text-left text-2xl font-semibold text-sky-300">
+      <h2
+        className={`mb-4 text-left text-2xl font-semibold ${
+          lightMode ? "text-slate-950" : "text-sky-300"
+        }`}
+      >
         Playlist
       </h2>
       <div className="space-y-1">
@@ -29,19 +34,38 @@ export default function Playlist({ lightMode }) {
             className={`cursor-pointer rounded-md border-b px-4 py-2 transition ${
               idx === selectedIndex
                 ? lightMode
-                  ? "bg-gray-300"
+                  ? "bg-gray-200"
                   : "bg-indigo-900"
                 : ""
-            } ${lightMode ? "hover:bg-gray-300" : "hover:bg-indigo-900"} `}
+            } ${lightMode ? "hover:bg-gray-200" : "hover:bg-indigo-900"}`}
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-sky-400">
+                {/* Song title */}
+                <h3
+                  className={`text-lg font-medium ${
+                    lightMode ? "text-gray-900" : "text-sky-400"
+                  }`}
+                >
                   {track.title}
                 </h3>
-                <p className="text-sm text-fuchsia-500">{track.artist}</p>
+                {/* Artist */}
+                <p
+                  className={`text-sm ${
+                    lightMode ? "text-rose-800" : "text-fuchsia-500"
+                  }`}
+                >
+                  {track.artist}
+                </p>
               </div>
-              <span className="text-sm text-fuchsia-300">{track.length}</span>
+              {/* Length */}
+              <span
+                className={`text-sm ${
+                  lightMode ? "text-gray-600" : "text-fuchsia-300"
+                }`}
+              >
+                {track.length}
+              </span>
             </div>
           </div>
         ))}

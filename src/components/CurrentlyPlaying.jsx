@@ -1,10 +1,10 @@
-// src/CurrentlyPlaying.jsx
+// src/components/CurrentlyPlaying.jsx
 import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 
-export default function CurrentlyPlaying() {
+export default function CurrentlyPlaying({ lightMode }) {
   return (
     <div className="flex h-full w-full flex-col justify-between px-4 py-4">
       {/* Top: cover art */}
@@ -14,7 +14,7 @@ export default function CurrentlyPlaying() {
 
       {/* Middle: song title + play/pause/etc */}
       <div className="space-y-3">
-        <SongTitle />
+        <SongTitle lightMode={lightMode} />
         <PlayControls />
       </div>
 
