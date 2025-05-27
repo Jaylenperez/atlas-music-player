@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import CurrentlyPlaying from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
 
-/** 
- * Same shape as the `/api/v1/playlist` items 
- */
+
 export interface PlaylistSong {
   id: string;
   title: string;
@@ -33,7 +31,7 @@ const App: React.FC = () => {
     <div
       className={`${
         lightMode ? "bg-red-50 text-gray-900" : "bg-indigo-950 text-white"
-      } flex h-screen flex-col overflow-x-hidden md:flex-row`}
+      } flex h-screen flex-col overflow-x-hidden overflow-y-auto md:overflow-y-hidden md:flex-row`}
     >
       <button
         onClick={() => setLightMode((m) => !m)}
@@ -57,7 +55,7 @@ const App: React.FC = () => {
         )}
       </div>
 
-      <div className="w-full overflow-y-auto border-t border-gray-200 p-4 md:w-1/2 md:border-t-0 md:border-l md:p-8">
+      <div className="w-full border-t border-gray-200 p-4 md:w-1/2 md:border-t-0 md:border-l md:p-8 md:overflow-y-auto">
         <Playlist
           lightMode={lightMode}
           tracks={playlist}
