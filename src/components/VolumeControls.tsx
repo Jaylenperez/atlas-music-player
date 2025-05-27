@@ -1,15 +1,20 @@
 // src/components/VolumeControls.tsx
-import React, { useState } from "react";
+import React from "react";
 
 export interface VolumeControlsProps {
+  /** Whether light mode is on (for styling) */
   lightMode: boolean;
+  /** Current volume (0–100) */
+  volume: number;
+  /** Callback to update volume in parent */
+  onVolumeChange: (volume: number) => void;
 }
 
 export const VolumeControls: React.FC<VolumeControlsProps> = ({
   lightMode,
+  volume,
+  onVolumeChange,
 }) => {
-  const [volume, setVolume] = useState(50);
-
   const iconBtn =
     "rounded p-2 transition " +
     (lightMode
@@ -36,7 +41,7 @@ export const VolumeControls: React.FC<VolumeControlsProps> = ({
         min={0}
         max={100}
         value={volume}
-        onChange={(e) => setVolume(+e.target.value)}
+        onChange={(e) => onVolumeChange(Number(e.target.value))}
         aria-label="Volume slider"
         className={`h-1 w-full cursor-pointer ${
           lightMode ? "accent-lime-700" : "accent-fuchsia-400"
