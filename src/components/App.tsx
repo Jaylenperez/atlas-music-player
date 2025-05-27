@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CurrentlyPlaying from "./CurrentlyPlaying";
+import { CurrentlyPlaying } from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
 
 export default function App() {
