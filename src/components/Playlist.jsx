@@ -1,6 +1,4 @@
-// src/components/Playlist.jsx
-import { useState } from "react";
-import PlayListItem from "./PlayListItem";
+import React, { useState } from "react";
 
 const tracks = [
   { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55" },
@@ -15,7 +13,7 @@ const tracks = [
   { title: "Shatter the Silence", artist: "Thunderclap Echo", length: "8:22" },
 ];
 
-export default function Playlist() {
+export default function Playlist({ lightMode }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -28,11 +26,23 @@ export default function Playlist() {
           <div
             key={idx}
             onClick={() => setSelectedIndex(idx)}
-            className={`cursor-pointer rounded-md ${
-              idx === selectedIndex ? "bg-indigo-900" : ""
-            }`}
+            className={`cursor-pointer rounded-md border-b px-4 py-2 transition ${
+              idx === selectedIndex
+                ? lightMode
+                  ? "bg-gray-300"
+                  : "bg-indigo-900"
+                : ""
+            } ${lightMode ? "hover:bg-gray-300" : "hover:bg-indigo-900"} `}
           >
-            <PlayListItem {...track} />
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-medium text-sky-400">
+                  {track.title}
+                </h3>
+                <p className="text-sm text-fuchsia-500">{track.artist}</p>
+              </div>
+              <span className="text-sm text-fuchsia-300">{track.length}</span>
+            </div>
           </div>
         ))}
       </div>

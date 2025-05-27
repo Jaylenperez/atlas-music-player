@@ -8,15 +8,16 @@ export default function App() {
 
   return (
     <div
-      className={
-        // pick the bg + text combo you want for each mode
-        `${lightMode ? "bg-gray-100 text-gray-900" : "bg-indigo-950 text-white"} flex h-screen flex-col overflow-x-hidden md:flex-row`
-      }
+      className={`${
+        lightMode ? "bg-gray-100 text-gray-900" : "bg-indigo-950 text-white"
+      } flex h-screen flex-col overflow-x-hidden md:flex-row`}
     >
       {/* toggle button */}
       <button
         onClick={() => setLightMode(!lightMode)}
-        className={`absolute top-4 right-4 rounded px-3 py-1 text-sm font-medium ${lightMode ? "bg-slate-400 text-gray-800" : "bg-gray-800 text-gray-200"} transition`}
+        className={`absolute top-4 right-4 rounded px-3 py-1 text-sm font-medium ${
+          lightMode ? "bg-slate-400 text-gray-800" : "bg-gray-800 text-gray-200"
+        } transition`}
       >
         {lightMode ? "Dark Mode" : "Light Mode"}
       </button>
@@ -28,7 +29,7 @@ export default function App() {
 
       {/* right panel */}
       <div className="w-full overflow-y-auto border-t border-gray-200 p-4 md:w-1/2 md:border-t-0 md:border-l md:p-8">
-        <Playlist />
+        <Playlist lightMode={lightMode} />
       </div>
     </div>
   );
