@@ -2,16 +2,19 @@
 import React, { useState } from "react";
 
 const tracks = [
-  { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55" },
-  { title: "Tidal Drift", artist: "Echoes of the Sea", length: "8:02" },
-  { title: "Fading Shadows", artist: "The Emberlight", length: "3:01" },
-  { title: "Cosmic Drift", artist: "Solar Flare", length: "5:01" },
-  { title: "Urban Serenade", artist: "Midnight Groove", length: "4:54" },
-  { title: "Whispers in the Wind", artist: "Rust & Ruin", length: "6:13" },
-  { title: "Electric Fever", artist: "Neon Jungle", length: "8:41" },
-  { title: "Edge of the Abyss", artist: "Steel Horizon", length: "2:27" },
-  { title: "Golden Haze", artist: "Velvet Waves", length: "3:15" },
-  { title: "Shatter the Silence", artist: "Thunderclap Echo", length: "8:22" },
+  { title: "Don't Call", artist: "Desire", length: "4:35" },
+  { title: "Ready To Let Go", artist: "Cage The Elephant", length: "3:08" },
+  { title: "Snap Out Of It", artist: "Arctic Monkeys", length: "3:13" },
+  { title: "Psychic City", artist: "YACHT, Classixx", length: "4:11" },
+  { title: "Outside", artist: "MorMor", length: "3:58" },
+  { title: "Tek It", artist: "Cafune", length: "3:12" },
+  { title: "Blue", artist: "A Perfect Circle", length: "4:14" },
+  { title: "Money Honey", artist: "Lady Gaga", length: "2:50" },
+  {
+    title: "Dirty Little Secret",
+    artist: "The All-American Rejects",
+    length: "3:14",
+  },
 ];
 
 export default function Playlist({ lightMode }) {
