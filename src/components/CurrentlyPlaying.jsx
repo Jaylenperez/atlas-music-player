@@ -15,7 +15,7 @@ export default function CurrentlyPlaying({ lightMode }) {
       {/* Middle: song title + play/pause/etc */}
       <div className="space-y-3">
         <SongTitle lightMode={lightMode} />
-        <PlayControls />
+        <PlayControls lightMode={lightMode} />
       </div>
 
       {/* Bottom: volume slider */}
