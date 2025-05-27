@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 export interface PlayControlsProps {
   lightMode: boolean;
+  isPlaying: boolean;
+  onPlayToggle: () => void;
   onBack: () => void;
   onForward: () => void;
   disableBack: boolean;
@@ -13,6 +15,8 @@ export interface PlayControlsProps {
 
 const PlayControls: React.FC<PlayControlsProps> = ({
   lightMode,
+  isPlaying,
+  onPlayToggle,
   onBack,
   onForward,
   disableBack,
@@ -20,13 +24,12 @@ const PlayControls: React.FC<PlayControlsProps> = ({
   shuffleEnabled,
   onShuffleToggle,
 }) => {
+  // internal speed state
   const [speed, setSpeed] = useState<0.5 | 1 | 2>(1);
-  const [isPlaying, setIsPlaying] = useState(false);
   const speeds: Array<0.5 | 1 | 2> = [0.5, 1, 2];
-
   const nextSpeed = () => {
-    const i = speeds.indexOf(speed);
-    setSpeed(speeds[(i + 1) % speeds.length]);
+    const idx = speeds.indexOf(speed);
+    setSpeed(speeds[(idx + 1) % speeds.length]);
   };
 
   const baseBtn = "rounded p-2 transition";
@@ -40,7 +43,7 @@ const PlayControls: React.FC<PlayControlsProps> = ({
 
   return (
     <div className="flex w-full items-center justify-between">
-      {/* Speed */}
+      {/* 1) Speed */}
       <button
         onClick={nextSpeed}
         className={`rounded px-2 py-1 text-sm font-medium transition ${
@@ -53,7 +56,7 @@ const PlayControls: React.FC<PlayControlsProps> = ({
         {speed}×
       </button>
 
-      {/* Back */}
+      {/* 2) Back */}
       <button
         onClick={onBack}
         disabled={disableBack}
@@ -71,9 +74,9 @@ const PlayControls: React.FC<PlayControlsProps> = ({
         </svg>
       </button>
 
-      {/* Play/Pause */}
+      {/* 3) Play / Pause */}
       <button
-        onClick={() => setIsPlaying((p) => !p)}
+        onClick={onPlayToggle}
         className={`${iconBtn} flex h-10 w-10 items-center justify-center border border-gray-300 p-2`}
         aria-label={isPlaying ? "Pause" : "Play"}
       >
@@ -101,7 +104,7 @@ const PlayControls: React.FC<PlayControlsProps> = ({
         )}
       </button>
 
-      {/* Forward */}
+      {/* 4) Forward */}
       <button
         onClick={onForward}
         disabled={disableForward}
@@ -119,12 +122,12 @@ const PlayControls: React.FC<PlayControlsProps> = ({
         </svg>
       </button>
 
-      {/* Shuffle */}
+      {/* 5) Shuffle */}
       <button
         onClick={onShuffleToggle}
         className={
           shuffleEnabled
-            ? `${baseBtn} text-green-400`
+            ? `${baseBtn} text-green-400 hover:text-green-500`
             : iconBtn
         }
         aria-label="Toggle shuffle"

@@ -2,10 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
-import PlayControls from "./PlayControls";
+import PlayControls, { PlayControlsProps } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 
-/** minimal playlist shape */
 export interface PlaylistSong {
   id: string;
   title: string;
@@ -13,7 +12,6 @@ export interface PlaylistSong {
   genre: string;
   duration: number;
 }
-/** full song payload */
 interface Song extends PlaylistSong {
   cover: string;
   song: string;
@@ -33,11 +31,13 @@ const CurrentlyPlaying: React.FC<Props> = ({
   onSelect,
 }) => {
   const [fullSong, setFullSong] = useState<Song | null>(null);
-  const [shuffleEnabled, setShuffleEnabled] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(50);
+  const [shuffleEnabled, setShuffleEnabled] = useState(false);
+  const [volume, setVolume] = useState(50);
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // fetch song details (cover + song URL)
+  // Load song details
   useEffect(() => {
     fetch(`/api/v1/songs/${track.id}`)
       .then((r) => {
@@ -48,40 +48,42 @@ const CurrentlyPlaying: React.FC<Props> = ({
       .catch(() => setFullSong(null));
   }, [track.id]);
 
-  // when fullSong changes, initialize audio
+  // When fullSong changes, swap audio
   useEffect(() => {
     if (!fullSong) return;
-    // pause existing audio
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
+    // tear down previous audio
+    audioRef.current?.pause();
     const audio = new Audio(fullSong.song);
     audio.volume = volume / 100;
     audioRef.current = audio;
-    // auto-play on song change
-    audio.play().catch(() => {});
-
-    return () => {
-      audio.pause();
-    };
+    audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    return () => { audio.pause(); };
   }, [fullSong]);
 
-  // update volume on change
+  // Update volume live
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
     }
   }, [volume]);
 
-  const coverSrc = fullSong?.cover ?? "/placeholder.svg";
+  // Playback handlers
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  };
 
+  // Back / Forward / Shuffle
   const idx = playlist.findIndex((t) => t.id === track.id);
   const isFirst = idx <= 0;
   const isLast = idx === playlist.length - 1;
 
-  const handleBack = () => {
-    if (!isFirst) onSelect(playlist[idx - 1]);
-  };
+  const handleBack = () => { if (!isFirst) onSelect(playlist[idx - 1]); };
   const handleForward = () => {
     if (shuffleEnabled) {
       const rand = Math.floor(Math.random() * playlist.length);
@@ -91,6 +93,8 @@ const CurrentlyPlaying: React.FC<Props> = ({
     }
   };
   const toggleShuffle = () => setShuffleEnabled((s) => !s);
+
+  const coverSrc = fullSong?.cover ?? "/placeholder.svg";
 
   return (
     <div className="flex h-full w-full flex-col justify-between px-4 py-4">
@@ -107,6 +111,8 @@ const CurrentlyPlaying: React.FC<Props> = ({
           />
           <PlayControls
             lightMode={lightMode}
+            isPlaying={isPlaying}
+            onPlayToggle={togglePlay}
             onBack={handleBack}
             onForward={handleForward}
             disableBack={isFirst}
