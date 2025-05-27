@@ -20,7 +20,7 @@ export default function CurrentlyPlaying({ lightMode }) {
 
       {/* Bottom: volume slider */}
       <div className="flex-shrink-0">
-        <VolumeControls />
+        <VolumeControls lightMode={lightMode} />
       </div>
     </div>
   );

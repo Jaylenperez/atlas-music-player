@@ -1,10 +1,12 @@
+// src/components/VolumeControls.jsx
 import { useState } from "react";
 
-export function VolumeControls() {
+export function VolumeControls({ lightMode }) {
   const [volume, setVolume] = useState(60);
 
   return (
     <div className="flex w-full items-center gap-2">
+      {/* speaker icon */}
       <button
         className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
         aria-label="Volume"
@@ -22,14 +24,17 @@ export function VolumeControls() {
         </svg>
       </button>
 
+      {/* themed slider */}
       <input
         type="range"
         min="0"
         max="100"
         value={volume}
         onChange={(e) => setVolume(Number(e.target.value))}
-        className="h-1 w-full cursor-pointer accent-fuchsia-400"
         aria-label="Volume slider"
+        className={`h-1 w-full cursor-pointer ${
+          lightMode ? "accent-rose-600" : "accent-fuchsia-400"
+        }`}
       />
     </div>
   );
