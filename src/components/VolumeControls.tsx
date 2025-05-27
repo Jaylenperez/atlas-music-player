@@ -1,18 +1,23 @@
-// src/components/VolumeControls.jsx
-import { useState } from "react";
+// src/components/VolumeControls.tsx
+import React, { useState } from "react";
 
-export function VolumeControls({ lightMode }) {
-  const [volume, setVolume] = useState(60);
+export interface VolumeControlsProps {
+  lightMode: boolean;
+}
 
-  const iconBtn = `rounded p-2 transition ${
-    lightMode
+export const VolumeControls: React.FC<VolumeControlsProps> = ({
+  lightMode,
+}) => {
+  const [volume, setVolume] = useState(50);
+
+  const iconBtn =
+    "rounded p-2 transition " +
+    (lightMode
       ? "text-gray-800 hover:bg-gray-200"
-      : "text-sky-400 hover:bg-indigo-900"
-  }`;
+      : "text-sky-400 hover:bg-indigo-900");
 
   return (
     <div className="flex w-full items-center gap-2">
-      {/* volume icon with light/dark coloring */}
       <button className={iconBtn} aria-label="Volume">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,19 +31,17 @@ export function VolumeControls({ lightMode }) {
           <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
         </svg>
       </button>
-
-      {/* volume slider */}
       <input
         type="range"
-        min="0"
-        max="100"
+        min={0}
+        max={100}
         value={volume}
-        onChange={(e) => setVolume(Number(e.target.value))}
+        onChange={(e) => setVolume(+e.target.value)}
         aria-label="Volume slider"
         className={`h-1 w-full cursor-pointer ${
-          lightMode ? "accent-lime-700" : "accent-fuchsia-400" // Volume slider colors
+          lightMode ? "accent-lime-700" : "accent-fuchsia-400"
         }`}
       />
     </div>
   );
-}
+};

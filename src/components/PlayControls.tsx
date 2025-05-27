@@ -1,27 +1,40 @@
-// src/components/PlayControls.jsx
-import { useState } from "react";
+// src/components/PlayControls.tsx
+import React, { useState } from "react";
 
-export function PlayControls({ lightMode }) {
-  const [speed, setSpeed] = useState(1);
+export interface PlayControlsProps {
+  lightMode: boolean;
+  onBack: () => void;
+  onForward: () => void;
+  disableBack: boolean;
+  disableForward: boolean;
+}
+
+const PlayControls: React.FC<PlayControlsProps> = ({
+  lightMode,
+  onBack,
+  onForward,
+  disableBack,
+  disableForward,
+}) => {
+  const [speed, setSpeed] = useState<0.5 | 1 | 2>(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const speeds = [1, 1.5, 2];
+  const speeds: Array<0.5 | 1 | 2> = [0.5, 1, 2];
 
   const nextSpeed = () => {
-    const currentIndex = speeds.indexOf(speed);
-    const nextIndex = (currentIndex + 1) % speeds.length;
-    setSpeed(speeds[nextIndex]);
+    const i = speeds.indexOf(speed);
+    setSpeed(speeds[(i + 1) % speeds.length]);
   };
 
-  // helper for button text color + hover
   const iconBtn =
     "rounded p-2 transition " +
     (lightMode
       ? "text-gray-800 hover:bg-gray-200"
       : "text-sky-400 hover:bg-indigo-900");
+  const disabledStyle = "opacity-50 pointer-events-none";
 
   return (
     <div className="flex w-full items-center justify-between">
-      {/* Speed Button */}
+      {/* Speed */}
       <button
         onClick={nextSpeed}
         className={`rounded px-2 py-1 text-sm font-medium transition ${
@@ -31,11 +44,16 @@ export function PlayControls({ lightMode }) {
         }`}
         aria-label="Change playback speed"
       >
-        {speed}X
+        {speed}×
       </button>
 
-      {/* Rewind Icon */}
-      <button className={iconBtn} aria-label="Rewind">
+      {/* Back */}
+      <button
+        onClick={onBack}
+        disabled={disableBack}
+        className={`${iconBtn} ${disableBack ? disabledStyle : ""}`}
+        aria-label="Previous song"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -44,13 +62,12 @@ export function PlayControls({ lightMode }) {
           stroke="currentColor"
         >
           <polygon points="11 19 2 12 11 5 11 19" />
-          <polygon points="22 19 13 12 22 5 22 19" />
         </svg>
       </button>
 
-      {/* Play / Pause Button */}
+      {/* Play/Pause */}
       <button
-        onClick={() => setIsPlaying(!isPlaying)}
+        onClick={() => setIsPlaying((p) => !p)}
         className={`${iconBtn} flex h-10 w-10 items-center justify-center border border-gray-300 p-2`}
         aria-label={isPlaying ? "Pause" : "Play"}
       >
@@ -78,8 +95,13 @@ export function PlayControls({ lightMode }) {
         )}
       </button>
 
-      {/* Fast Forward Icon */}
-      <button className={iconBtn} aria-label="Fast forward">
+      {/* Forward */}
+      <button
+        onClick={onForward}
+        disabled={disableForward}
+        className={`${iconBtn} ${disableForward ? disabledStyle : ""}`}
+        aria-label="Next song"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -88,11 +110,10 @@ export function PlayControls({ lightMode }) {
           stroke="currentColor"
         >
           <polygon points="13 19 22 12 13 5 13 19" />
-          <polygon points="2 19 11 12 2 5 2 19" />
         </svg>
       </button>
 
-      {/* Shuffle Icon */}
+      {/* Shuffle placeholder */}
       <button className={iconBtn} aria-label="Shuffle">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -110,4 +131,6 @@ export function PlayControls({ lightMode }) {
       </button>
     </div>
   );
-}
+};
+
+export default PlayControls;

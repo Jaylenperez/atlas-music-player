@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { CoverArt } from "./CoverArt";
 import { SongTitle } from "./SongTitle";
-import { PlayControls } from "./PlayControls";
+import PlayControls from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 
+/** same minimal shape as playlist items */
 interface PlaylistSong {
   id: string;
   title: string;
@@ -12,40 +13,52 @@ interface PlaylistSong {
   genre: string;
   duration: number;
 }
-
+/** full song payload (includes cover) */
 interface Song extends PlaylistSong {
   cover: string;
   song: string;
 }
 
-interface CurrentlyPlayingProps {
+interface Props {
   lightMode: boolean;
   track: PlaylistSong;
+  playlist: PlaylistSong[];
+  onSelect: (t: PlaylistSong) => void;
 }
 
-export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
+const CurrentlyPlaying: React.FC<Props> = ({
   lightMode,
   track,
+  playlist,
+  onSelect,
 }) => {
-  // we'll store the full Song here once we fetch it
   const [fullSong, setFullSong] = useState<Song | null>(null);
 
+  // fetch cover (and other fields) whenever track changes
   useEffect(() => {
-    // every time `track.id` changes, fetch its details
     fetch(`/api/v1/songs/${track.id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load song details");
-        return res.json();
+      .then((r) => {
+        if (!r.ok) throw new Error("Song fetch failed");
+        return r.json();
       })
       .then((data: Song) => setFullSong(data))
-      .catch((err) => {
-        console.error(err);
-        setFullSong(null);
-      });
+      .catch((_) => setFullSong(null));
   }, [track.id]);
 
-  // while loading, you can show a spinner or fallback image
+  // fallback while loading
   const coverSrc = fullSong?.cover ?? "/placeholder.svg";
+
+  // find our position in the list
+  const idx = playlist.findIndex((t) => t.id === track.id);
+  const isFirst = idx <= 0;
+  const isLast = idx === playlist.length - 1;
+
+  const handleBack = () => {
+    if (!isFirst) onSelect(playlist[idx - 1]);
+  };
+  const handleForward = () => {
+    if (!isLast) onSelect(playlist[idx + 1]);
+  };
 
   return (
     <div className="flex h-full w-full flex-col justify-between px-4 py-4">
@@ -60,7 +73,13 @@ export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
             title={fullSong.title}
             artist={fullSong.artist}
           />
-          <PlayControls lightMode={lightMode} />
+          <PlayControls
+            lightMode={lightMode}
+            onBack={handleBack}
+            onForward={handleForward}
+            disableBack={isFirst}
+            disableForward={isLast}
+          />
         </div>
       )}
 
@@ -70,3 +89,5 @@ export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
     </div>
   );
 };
+
+export default CurrentlyPlaying;
