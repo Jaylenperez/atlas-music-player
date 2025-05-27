@@ -1,7 +1,5 @@
 // src/components/SongTitle.jsx
-import React from "react";
-
-export function SongTitle({ lightMode }) {
+export function SongTitle({ lightMode, title, artist }) {
   return (
     <div className="w-full">
       <h2
@@ -9,14 +7,14 @@ export function SongTitle({ lightMode }) {
           lightMode ? "text-slate-950" : "text-sky-400"
         }`}
       >
-        Song title
+        {title}
       </h2>
       <p
         className={`text-left text-lg ${
           lightMode ? "text-yellow-950" : "text-fuchsia-500"
         }`}
       >
-        Artist
+        {artist}
       </p>
     </div>
   );
