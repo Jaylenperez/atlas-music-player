@@ -6,6 +6,7 @@ import { VolumeControls } from "./VolumeControls";
 
 export default function CurrentlyPlaying({ lightMode }) {
   return (
+    // vertical flex, fill available space, spaced children
     <div className="flex h-full w-full flex-col justify-between px-4 py-4">
       {/* Top: cover art */}
       <div className="flex-shrink-0">

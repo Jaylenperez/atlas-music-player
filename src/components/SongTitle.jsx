@@ -13,7 +13,7 @@ export function SongTitle({ lightMode }) {
       </h2>
       <p
         className={`text-left text-lg ${
-          lightMode ? "text-rose-700" : "text-fuchsia-500"
+          lightMode ? "text-yellow-950" : "text-fuchsia-500"
         }`}
       >
         Artist

@@ -1,6 +1,6 @@
-// src/components/Playlist.jsx
 import React, { useState } from "react";
 
+// List of static tracks
 const tracks = [
   { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55" },
   { title: "Tidal Drift", artist: "Echoes of the Sea", length: "8:02" },
@@ -15,6 +15,7 @@ const tracks = [
 ];
 
 export default function Playlist({ lightMode }) {
+  // keep track of which which track is selected
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -30,12 +31,12 @@ export default function Playlist({ lightMode }) {
         {tracks.map((track, idx) => (
           <div
             key={idx}
-            onClick={() => setSelectedIndex(idx)}
+            onClick={() => setSelectedIndex(idx)} // set selection on click
             className={`cursor-pointer rounded-md border-b px-4 py-2 transition ${
               idx === selectedIndex
                 ? lightMode
-                  ? "bg-gray-200"
-                  : "bg-indigo-900"
+                  ? "bg-gray-200" // light mode selected bg
+                  : "bg-indigo-900" // dark mode selected bg
                 : ""
             } ${lightMode ? "hover:bg-gray-200" : "hover:bg-indigo-900"}`}
           >
@@ -52,7 +53,7 @@ export default function Playlist({ lightMode }) {
                 {/* Artist */}
                 <p
                   className={`text-sm ${
-                    lightMode ? "text-rose-800" : "text-fuchsia-500"
+                    lightMode ? "text-yellow-800" : "text-fuchsia-500"
                   }`}
                 >
                   {track.artist}

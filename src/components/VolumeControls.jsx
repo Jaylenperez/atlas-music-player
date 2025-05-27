@@ -4,13 +4,16 @@ import { useState } from "react";
 export function VolumeControls({ lightMode }) {
   const [volume, setVolume] = useState(60);
 
+  const iconBtn = `rounded p-2 transition ${
+    lightMode
+      ? "text-gray-800 hover:bg-gray-200"
+      : "text-sky-400 hover:bg-indigo-900"
+  }`;
+
   return (
     <div className="flex w-full items-center gap-2">
-      {/* speaker icon */}
-      <button
-        className="rounded p-2 text-sky-400 transition hover:bg-indigo-900"
-        aria-label="Volume"
-      >
+      {/* volume icon with light/dark coloring */}
+      <button className={iconBtn} aria-label="Volume">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -24,7 +27,7 @@ export function VolumeControls({ lightMode }) {
         </svg>
       </button>
 
-      {/* themed slider */}
+      {/* volume slider */}
       <input
         type="range"
         min="0"
@@ -33,7 +36,7 @@ export function VolumeControls({ lightMode }) {
         onChange={(e) => setVolume(Number(e.target.value))}
         aria-label="Volume slider"
         className={`h-1 w-full cursor-pointer ${
-          lightMode ? "accent-rose-600" : "accent-fuchsia-400"
+          lightMode ? "accent-lime-700" : "accent-fuchsia-400" // Volume slider colors
         }`}
       />
     </div>
