@@ -7,6 +7,8 @@ export interface PlayControlsProps {
   onForward: () => void;
   disableBack: boolean;
   disableForward: boolean;
+  shuffleEnabled: boolean;
+  onShuffleToggle: () => void;
 }
 
 const PlayControls: React.FC<PlayControlsProps> = ({
@@ -15,6 +17,8 @@ const PlayControls: React.FC<PlayControlsProps> = ({
   onForward,
   disableBack,
   disableForward,
+  shuffleEnabled,
+  onShuffleToggle,
 }) => {
   const [speed, setSpeed] = useState<0.5 | 1 | 2>(1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -25,8 +29,10 @@ const PlayControls: React.FC<PlayControlsProps> = ({
     setSpeed(speeds[(i + 1) % speeds.length]);
   };
 
+  const baseBtn = "rounded p-2 transition";
   const iconBtn =
-    "rounded p-2 transition " +
+    baseBtn +
+    " " +
     (lightMode
       ? "text-gray-800 hover:bg-gray-200"
       : "text-sky-400 hover:bg-indigo-900");
@@ -113,8 +119,16 @@ const PlayControls: React.FC<PlayControlsProps> = ({
         </svg>
       </button>
 
-      {/* Shuffle placeholder */}
-      <button className={iconBtn} aria-label="Shuffle">
+      {/* Shuffle */}
+      <button
+        onClick={onShuffleToggle}
+        className={
+          shuffleEnabled
+            ? `${baseBtn} text-green-400`
+            : iconBtn
+        }
+        aria-label="Toggle shuffle"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
