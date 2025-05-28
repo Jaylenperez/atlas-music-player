@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SongTitle component > matches snapshot in dark mode 1`] = `
+<div>
+  <div
+    class="w-full"
+  >
+    <h2
+      class="text-left text-2xl font-bold text-sky-400"
+    >
+      Dreamscape
+    </h2>
+    <p
+      class="text-left text-lg text-fuchsia-500"
+    >
+      Aurora
+    </p>
+  </div>
+</div>
+`;
+
+exports[`SongTitle component > matches snapshot in light mode 1`] = `
+<div>
+  <div
+    class="w-full"
+  >
+    <h2
+      class="text-left text-2xl font-bold text-slate-950"
+    >
+      Dreamscape
+    </h2>
+    <p
+      class="text-left text-lg text-yellow-950"
+    >
+      Aurora
+    </p>
+  </div>
+</div>
+`;
