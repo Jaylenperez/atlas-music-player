@@ -1,4 +1,4 @@
-# Atlas Music Player
+# Atlas Music Player.
 
 ## Getting Started
 
